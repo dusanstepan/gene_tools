@@ -19,22 +19,24 @@ def main (infile, outfile):
             data[i].append(value)
 
     set_list = []
-    unique_set_list = []
+    output_set_list = []
     for i, h in enumerate(headers):
         set_list.append(set(data[i]))
     for (i, s) in enumerate(set_list):
         all_others = [el for num, el in enumerate(set_list) if not num==i]
-        unique_set_list.append(set_list[i] -  set.union(*all_others))
+        output_set_list.append(set_list[i] -  set.union(*all_others))
+    common_set = set.intersection(*set_list)
+    output_set_list.append(common_set)  # This is not list of unique sets anymore
 
-    unique_lists = [list(k) for k in unique_set_list]
-    unique_lists_size = [len(l) for l in unique_lists]
-    max_size = max(unique_lists_size)
-    for i,l in enumerate(unique_lists):
+    output_lists = [list(k) for k in output_set_list]
+    output_lists_size = [len(l) for l in output_lists]
+    max_size = max(output_lists_size)
+    for i,l in enumerate(output_lists):
         l += [''] * (max_size - len(l))
-    rows = zip(*unique_lists)
+    rows = zip(*output_lists)
     with open(outfile, 'w') as outfile:
         writer = csv.writer(outfile)
-        writer.writerow(headers)
+        writer.writerow(headers + ["Common"])
         for row in rows:
             writer.writerow(row)
 
