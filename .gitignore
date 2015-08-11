@@ -1,0 +1,7 @@
+*~
+*.pyc
+*.pdf
+*.csv
+*.xlsx
+*.gone*
+.DS_store*
