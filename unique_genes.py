@@ -1,5 +1,6 @@
 #!/usr/bin/env python
-"""
+"""DEPRECATED!!! Use diff_and_common.py -nc instead.
+Takes a csv files with names (of genes) in n columns. Returns a file with columns of names that are unique for that column in the input file.
 """
 
 import argparse
@@ -9,9 +10,8 @@ import csv
 def main (infile, outfile):
 
     # open the file in universal line ending mode 
-    with open(infile, 'rU') as infile:
-      # read the file as a dictionary for each row ({header : value})
-      reader = csv.reader(infile)
+    with open(infile, 'rU') as inf:
+      reader = csv.reader(inf)
       headers = next(reader)
       data = [[] for h in headers]
       for row in reader:
